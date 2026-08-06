@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tops Deals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f4f7fc;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        .sub-head {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        /* Products Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+            transition: transform 0.2s;
+            text-align: center;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: #007bff;
+        }
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #f0f0f0;
+        }
+        .product-card .count {
+            background: #007bff;
+            color: white;
+            border-radius: 50px;
+            padding: 2px 12px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .product-card a {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        .product-card a:hover {
+            background: #218838;
+        }
+        .delete-btn {
+            background: #dc3545;
+            border: none;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        /* Admin Section - Password protected */
+        .admin-section {
+            background: #e9ecef;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 2px solid #007bff;
+        }
+        .admin-section h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        .form-group input[type="file"] {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+        .form-group input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 16px;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: #007bff;
+        }
+        .form-group button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .form-group button:hover {
+            background: #0056b3;
+        }
+        .empty-msg {
+            text-align: center;
+            color: #888;
+            padding: 40px;
+            font-size: 18px;
+        }
+        .file-label {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 2px dashed #007bff;
+            cursor: pointer;
+            display: inline-block;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .file-label:hover {
+            background: #007bff;
+            color: white;
+        }
+        #fileInput {
+            display: none;
+        }
+        .image-preview {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .image-preview img {
+            max-height: 80px;
+            border-radius: 10px;
+            border: 2px solid #007bff;
+        }
+        .image-preview span {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            color: #999;
+            font-size: 14px;
+        }
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .logout-btn:hover {
+            background: #c82333;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .clear-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .clear-btn:hover {
+            background: #c82333;
+        }
+        .password-box {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            border: 2px solid #007bff;
+        }
+        .password-box input {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 16px;
+            outline: none;
+            width: 200px;
+        }
+        .password-box input:focus {
+            border-color: #007bff;
+        }
+        .password-box button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .password-box button:hover {
+            background: #218838;
+        }
+        .password-error {
+            color: red;
+            font-weight: bold;
+            display: none;
+            margin-left: 10px;
+        }
+        .admin-locked {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .admin-unlocked {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .lock-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- 🛍️ PRODUCTS DISPLAY - Sabhi visitors ko dikhega -->
+    <h1>🛒 Mere Best Products</h1>
+    <p class="sub-head">👇 <h2> Neeche diye gaye products par click karein aur direct purchase karein</p></h2>
+
+    <div id="productList" class="product-grid">
+        <!-- Products yahan show honge -->
+    </div>
+
+    <!-- 🔧 ADMIN SECTION - Sirf password ke baad kaam karega -->
+    <div class="admin-section" id="adminSection">
+        <div class="admin-header">
+            <h3>🔐 Admin Panel - Products Add/Delete</h3>
+        </div>
+        
+        <!-- 🔒 Password Box - Sirf Admin Panel ke andar -->
+        <div class="password-box">
+            <span class="lock-icon">🔒</span>
+            <input type="password" id="adminPassword" placeholder="Enter Password" maxlength="10">
+            <button onclick="unlockAdmin()">🔓 Unlock</button>
+            <button onclick="logoutAdmin()" style="background:#dc3545;">🚪 Logout</button>
+            <span id="passwordError" class="password-error">❌ Galat password!</span>
+            <span id="passwordSuccess" style="color:#28a745; font-weight:bold; display:none;">✅ Unlocked!</span>
+        </div>
+
+        <!-- Admin Controls - Pehle Locked honge -->
+        <div id="adminControls" class="admin-locked">
+            <div class="form-group">
+                <input type="file" id="fileInput" accept="image/*" onchange="handleImageSelect(event)">
+                <label for="fileInput" class="file-label">📸 Image Select Karein</label>
+                
+                <input type="text" id="productLink" placeholder="Affiliate Link (Jaise: https://amzn.to/xxxx)" />
+                
+                <button onclick="addProductWithImage()">➕ Add Product</button>
+            </div>
+
+            <div id="imagePreviewContainer" class="image-preview" style="display:none;">
+                <img id="imagePreview" src="" alt="Preview">
+                <span id="fileName">File selected</span>
+                <button onclick="clearImageSelection()" style="background:#dc3545; color:white; border:none; padding:5px 15px; border-radius:50px; cursor:pointer;">✖ Remove</button>
+            </div>
+
+            <p style="margin-top:15px; font-size:14px; color:#555;">⭐ Apni computer se image select karein, affiliate link daalein aur "Add Product" dabayein.</p>
+            
+            <button onclick="clearAllProducts()" class="clear-btn">🗑️ Saare Products Hatao</button>
+        </div>
+    </div>
+    
+    <div class="footer-note">
+        ⚠️ Yeh website sirf aapke YouTube viewers ke liye hai. Admin panel password se protected hai.
+    </div>
+</div>
+
+<script>
+    // ---------- CORRECT PASSWORD ----------
+    const CORRECT_PASSWORD = "2618";
+    let isAdminUnlocked = false;
+
+    // ---------- PRODUCTS DATA ----------
+    let products = [];
+    let selectedImageData = null;
+
+    // ---------- PAGE LOAD ----------
+    window.onload = function() {
+        const stored = localStorage.getItem('myAffiliateProducts');
+        if (stored) {
+            products = JSON.parse(stored);
+        } else {
+            products = [
+                {
+                    image: 'https://via.placeholder.com/300x200/007bff/ffffff?text=Product+1',
+                    link: 'https://amazon.in'
+                },
+                {
+                    image: 'https://via.placeholder.com/300x200/28a745/ffffff?text=Product+2',
+                    link: 'https://amazon.in'
+                }
+            ];
+            localStorage.setItem('myAffiliateProducts', JSON.stringify(products));
+        }
+        renderProducts();
+
+        // Enter press par unlock
+        document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                unlockAdmin();
+            }
+        });
+    };
+
+    // ---------- UNLOCK ADMIN ----------
+    function unlockAdmin() {
+        const input = document.getElementById('adminPassword');
+        const error = document.getElementById('passwordError');
+        const success = document.getElementById('passwordSuccess');
+        const password = input.value.trim();
+
+        if (password === CORRECT_PASSWORD) {
+            isAdminUnlocked = true;
+            error.style.display = 'none';
+            success.style.display = 'inline';
+            document.getElementById('adminControls').className = 'admin-unlocked';
+            input.value = '';
+            input.placeholder = '✅ Unlocked!';
+            // Password box ko green border
+            document.querySelector('.password-box').style.borderColor = '#28a745';
+        } else {
+            error.style.display = 'inline';
+            success.style.display = 'none';
+            input.value = '';
+            input.focus();
+        }
+    }
+
+    // ---------- LOGOUT ADMIN ----------
+    function logoutAdmin() {
+        isAdminUnlocked = false;
+        document.getElementById('adminControls').className = 'admin-locked';
+        document.getElementById('passwordError').style.display = 'none';
+        document.getElementById('passwordSuccess').style.display = 'none';
+        document.getElementById('adminPassword').value = '';
+        document.getElementById('adminPassword').placeholder = 'Enter Password';
+        document.querySelector('.password-box').style.borderColor = '#007bff';
+        alert('🔒 Admin panel locked!');
+    }
+
+    // ---------- RENDER PRODUCTS ----------
+    function renderProducts() {
+        const container = document.getElementById('productList');
+        if (products.length === 0) {
+            container.innerHTML = `<div class="empty-msg">❌ Abhi koi product nahi hai.</div>`;
+            return;
+        }
+
+        let html = '';
+        products.forEach((product, index) => {
+            // Delete button sirf tab dikhega jab admin unlocked ho
+            const deleteButton = isAdminUnlocked ? `<br><button class="delete-btn" onclick="deleteProduct(${index})">🗑️ Remove</button>` : '';
+            
+            html += `
+                <div class="product-card">
+                    <img src="${product.image}" alt="Product Image" onerror="this.src='https://via.placeholder.com/300x200/ff0000/ffffff?text=Image+Not+Found'">
+                    <div class="count">#${index + 1}</div>
+                    <a href="${product.link}" target="_blank" rel="noopener noreferrer">🛍️ Buy Now</a>
+                    ${deleteButton}
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    // ---------- IMAGE SELECT ----------
+    function handleImageSelect(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                selectedImageData = e.target.result;
+                document.getElementById('imagePreview').src = selectedImageData;
+                document.getElementById('imagePreviewContainer').style.display = 'flex';
+                document.getElementById('fileName').textContent = file.name;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function clearImageSelection() {
+        selectedImageData = null;
+        document.getElementById('imagePreviewContainer').style.display = 'none';
+        document.getElementById('fileInput').value = '';
+    }
+
+    // ---------- ADD PRODUCT (Sirf Admin) ----------
+    function addProductWithImage() {
+        if (!isAdminUnlocked) {
+            alert('⚠️ Pehle admin panel unlock karein! Password (2618) daalein.');
+            return;
+        }
+
+        const linkInput = document.getElementById('productLink');
+        let link = linkInput.value.trim();
+
+        if (!selectedImageData) {
+            alert('⚠️ Kripya pehle image select karein!');
+            return;
+        }
+
+        if (link === '') {
+            alert('⚠️ Kripya affiliate link daalein!');
+            return;
+        }
+
+        products.push({ 
+            image: selectedImageData, 
+            link: link 
+        });
+        
+        localStorage.setItem('myAffiliateProducts', JSON.stringify(products));
+
+        linkInput.value = '';
+        clearImageSelection();
+
+        renderProducts();
+        alert('✅ Product successfully add ho gaya!');
+    }
+
+    // ---------- DELETE PRODUCT (Sirf Admin) ----------
+    function deleteProduct(index) {
+        if (!isAdminUnlocked) {
+            alert('⚠️ Pehle admin panel unlock karein!');
+            return;
+        }
+
+        if (confirm('Kya aap yeh product hataana chahte hain?')) {
+            products.splice(index, 1);
+            localStorage.setItem('myAffiliateProducts', JSON.stringify(products));
+            renderProducts();
+        }
+    }
+
+    // ---------- CLEAR ALL (Sirf Admin) ----------
+    function clearAllProducts() {
+        if (!isAdminUnlocked) {
+            alert('⚠️ Pehle admin panel unlock karein!');
+            return;
+        }
+
+        if (confirm('Saare products delete ho jayenge. Kya aap sure hain?')) {
+            products = [];
+            localStorage.setItem('myAffiliateProducts', JSON.stringify(products));
+            renderProducts();
+            alert('Sab products hat gaye!');
+        }
+    }
+</script>
+
+</body>
+</html>
