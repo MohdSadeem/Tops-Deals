@@ -1,0 +1,108 @@
+# Top Deals - Amazon Affiliate Store
+
+Is version mein products permanently HTML ke andar add honge. Sirf apna Amazon affiliate link replace karna hai.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top Deals - Amazon Finds</title>
+  <style>
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#f4f4f4;
+    }
+    header{
+      background:#131921;
+      color:#fff;
+      padding:18px;
+      text-align:center;
+      font-size:28px;
+      font-weight:bold;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+      padding:20px;
+      max-width:1200px;
+      margin:auto;
+    }
+    .card{
+      background:#fff;
+      border-radius:14px;
+      box-shadow:0 4px 12px rgba(0,0,0,.1);
+      overflow:hidden;
+      text-align:center;
+      padding:15px;
+    }
+    .card img{
+      width:100%;
+      height:200px;
+      object-fit:cover;
+      border-radius:10px;
+    }
+    .card h3{
+      font-size:18px;
+      margin:12px 0;
+      color:#333;
+    }
+    .btn{
+      display:inline-block;
+      width:100%;
+      background:#ff9900;
+      color:#111;
+      text-decoration:none;
+      padding:12px;
+      border-radius:8px;
+      font-weight:bold;
+    }
+    .btn:hover{
+      background:#e68a00;
+    }
+  </style>
+</head>
+<body>
+
+<header>Top Deals</header>
+
+<div class="grid">
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600" alt="Hair Brush">
+    <h3>5 in 1 Hot Air Brush</h3>
+    <a class="btn" href="https://amzn.to/YOUR-AFFILIATE-LINK-1" target="_blank" rel="noopener noreferrer sponsored">Buy Now</a>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600" alt="Blender">
+    <h3>Portable Mini Blender</h3>
+    <a class="btn" href="https://amzn.to/YOUR-AFFILIATE-LINK-2" target="_blank" rel="noopener noreferrer sponsored">Buy Now</a>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=600" alt="Hairbrush">
+    <h3>Self Cleaning Hairbrush</h3>
+    <a class="btn" href="https://amzn.to/YOUR-AFFILIATE-LINK-3" target="_blank" rel="noopener noreferrer sponsored">Buy Now</a>
+  </div>
+
+</div>
+
+</body>
+</html>
+```
+
+Replace these placeholders with your Amazon affiliate links:
+
+* `YOUR-AFFILIATE-LINK-1`
+* `YOUR-AFFILIATE-LINK-2`
+* `YOUR-AFFILIATE-LINK-3`
+
+For example:
+
+`https://amzn.to/3AbCdEf`
+
+Then upload this file as `index.html` in your GitHub repository and commit the changes. The Buy Now buttons will open Amazon directly with your affiliate tag.
